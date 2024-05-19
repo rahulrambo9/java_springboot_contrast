@@ -43,4 +43,19 @@ docker run -p 8080:8080 \
   -e CONTRAST__API__USER_NAME=agent_f1c88e2a-6136-**********@***sOrg \
   java-springboot-contrast:v8
 
+ 4.Access the Vulnerable Endpoints:
+
+Use a browser or a tool like curl to access the endpoints to trigger the vulnerabilities.
+bash
+Copy code
+curl "http://localhost/vulnerable?username=%27%20OR%20%271%27=%271%27"
+curl "http://localhost:8080/xss?input=<script>alert('XSS')</script>"
+curl "http://localhost:8080/idor?id=1"
+curl "http://localhost:8080/cmd?command=ls"
+
+Important Notes
+Security: Never deploy intentionally vulnerable code in a production environment. Use a separate, isolated environment for security testing.
+Ethics: Use the knowledge of creating vulnerabilities responsibly. Always have permission to test the systems you are working on.
+
+
  
