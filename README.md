@@ -1,5 +1,11 @@
 # Description
- This repo contain one self modified java springboot application and some security testing classes which will help to see how contrast caught and monitor vulnerabilities and attacks.
+ This repo contain one self modified java springboot application and some security testing classes
+ which will help to see how contrast caught and monitor vulnerabilities and attacks.
+
+ Prerequiste:
+ a) Need Contrast account free or paid --> which will give api key, service key, url etc.
+ b) Docker desktop 
+ c) Kubernetes cluster - minikube or kubeadm (if need to test on k8)
 
  ******** Steps for Instrumenting contrast into base image (Dockerfile) *************
 1. Add below steps in your base image Dockefile:
