@@ -1,0 +1,12 @@
+FROM openjdk:8-jre-alpine as runtime
+ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/springboot-k8s-demo.jar"]
+
+#
+# CONTRAST STAGE
+# Take the runtime stage above and add the Contrast agent jar and set JAVA_TOOL_OPTIONS to enable it.
+#
+FROM runtime as contrast
+COPY --from=contrast/agent-java:latest /contrast/contrast-agent.jar /opt/contrast/contrast.jar
+ENV JAVA_TOOL_OPTIONS='-javaagent:/opt/contrast/contrast.jar -Dcontrast.application.name=java-spring-contrast'

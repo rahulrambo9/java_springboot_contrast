@@ -1,0 +1,5 @@
+com\javatechie\k8s\controller\CommandInjectionController.class
+com\javatechie\k8s\controller\XSSController.class
+com\javatechie\k8s\controller\IDORController.class
+com\javatechie\k8s\controller\SQLInjectionController.class
+com\javatechie\k8s\SpringbootK8sDemoApplication.class

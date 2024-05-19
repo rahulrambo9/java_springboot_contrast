@@ -1,0 +1,7 @@
+api: 
+  url: https://ce.contrastsecurity.com/Contrast
+  api_key: jE6657GKeN8eIz1pO12DZrCnFMgu8Opd
+  service_key: CNPXTCCFMDCLU9IX
+  user_name: agent_f1c88e2a-6136-4065-8396-40bc0bf86c10@ShrutisOrg
+log:
+  level: DEBUG
