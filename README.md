@@ -3,22 +3,32 @@
 
  ******** Steps for Instrumenting contrast into base image (Dockerfile) *************
 1. Add below steps in your base image Dockefile:
-# Use an official OpenJDK runtime as a parent image
+* Use an official OpenJDK runtime as a parent image *
 FROM openjdk:8-jre-alpine
 
-# Copy the required agent files from the official Contrast agent image
+* Copy the required agent files from the official Contrast agent image *
 COPY --from=contrast/agent-java:latest /contrast/contrast-agent.jar /opt/contrast/contrast.jar
 
-# Copy the Contrast configuration file to the container
+* Copy the Contrast configuration file to the container *
 COPY contrast_security.yaml /opt/contrast/contrast_security.yaml
 
-# Set the environment variable for Contrast agent options
+* Set the environment variable for Contrast agent options * 
 ENV CONTRAST_OPTS="-javaagent:/opt/contrast/contrast.jar -Dcontrast.config.path=/opt/contrast/contrast_security.yaml"
 
-# Set Java tool options to include the Contrast agent options
+* Set Java tool options to include the Contrast agent options *
 ENV JAVA_TOOL_OPTIONS="$CONTRAST_OPTS"
 
-2. Run the Container with Correct Environment Variables:
+2. Create "Contrast_security.yaml"
+api:
+  url: https://ce.contrastsecurity.com/Contrast
+  api_key: jE6---------------FMgu8Opd
+  service_key: CNPX-------IX
+  user_name: agent_f---------------------@tisOrg
+log:
+  level: DEBUG
+
+
+3.Run the Container with Correct Environment Variables:
 Ensure that you pass the necessary environment variables when running the container.
 
 docker run -p 8080:8080 \
