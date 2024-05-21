@@ -1,43 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-k8s-demo
+  name: java-spring-contrast-app
+  labels:
+    app: java-spring-contrast-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: springboot-k8s-demo
+      app: java-spring-contrast-app
   template:
     metadata:
       labels:
-        app: springboot-k8s-demo
+        app: java-spring-contrast-app
     spec:
       containers:
-      - name: springboot-k8s-demo
-        image: java-springboot-contrast:v10
+      - name: java-spring-contrast-app
+        image: java_spring_contrast_appimg:v1
         ports:
         - containerPort: 8080
-        env:
-        - name: CONTRAST__API__URL
-          valueFrom:
-            secretKeyRef:
-              name: contrast-secrets
-              key: CONTRAST_API_URL
-        - name: CONTRAST__API__API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: contrast-secrets
-              key: CONTRAST_API_KEY
-        - name: CONTRAST__API__SERVICE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: contrast-secrets
-              key: CONTRAST_SERVICE_KEY
-        - name: CONTRAST__API__USER_NAME
-          valueFrom:
-            secretKeyRef:
-              name: contrast-secrets
-              key: CONTRAST_USER_NAME
         resources:
           requests:
             memory: "512Mi"

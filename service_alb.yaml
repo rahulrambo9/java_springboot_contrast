@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot-k8s-demo-service
+  name: java-spring-contrast-app
 spec:
   selector:
-    app: springboot-k8s-demo
+    app: java-spring-contrast-app
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
   type: LoadBalancer
+

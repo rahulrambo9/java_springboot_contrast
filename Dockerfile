@@ -1,23 +1,18 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:8-jre-alpine
 
-# Add the application jar to the container
-ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
+# Use the custom base image with the Contrast agent
+FROM java_spring_contrast_baseimg:v1
 
-# Copy the required agent files from the official Contrast agent image
-COPY --from=contrast/agent-java:latest /contrast/contrast-agent.jar /opt/contrast/contrast.jar
+# Set the Contrast-specific environment variables and options
+ENV CONTRAST_OPTS="\
+-Dcontrast.application.metadata=bU=java_spring_contrast_app,contactEmail=rahulvhd9@gmail.com,contactName=Rahul \
+-Dcontrast.agent.java.standalone_app_name=java_spring_contrast_app \
+-Dcontrast.application.group=Dev"
 
-# Copy the Contrast configuration file to the container
-COPY contrast_security.yaml /opt/contrast/contrast_security.yaml
+# Combine CONTRAST_OPTS with existing JAVA_TOOL_OPTIONS
+ENV JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} ${CONTRAST_OPTS}"
 
-# Set the environment variable for Contrast agent options
-ENV CONTRAST_OPTS="-javaagent:/opt/contrast/contrast.jar -Dcontrast.config.path=/opt/contrast/contrast_security.yaml"
+# Copy your Spring application JAR file into the container
+COPY target/springboot-k8s-demo.jar springboot-k8s-demo.jar
 
-# Set Java tool options to include the Contrast agent options
-ENV JAVA_TOOL_OPTIONS="$CONTRAST_OPTS"
-
-# Expose port 8080 for the application
-EXPOSE 8080
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "springboot-k8s-demo.jar"]
+# Set the entry point to run your Spring application
+ENTRYPOINT ["java","-jar","/springboot-k8s-demo.jar"]
