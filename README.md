@@ -64,4 +64,3 @@ Security: Never deploy intentionally vulnerable code in a production environment
 Ethics: Use the knowledge of creating vulnerabilities responsibly. Always have permission to test the systems you are working on.
 
 
- 

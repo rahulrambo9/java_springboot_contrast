@@ -1,13 +1,10 @@
-# Use the official OpenJDK image as the base image
 FROM openjdk:8-jre-alpine
 
 # Copy the required agent files from the official Contrast agent image
 COPY --from=contrast/agent-java:latest /contrast/contrast-agent.jar /opt/contrast/contrast-agent.jar
 
-# Set the Contrast configuration (adjust paths and settings as needed)
-ENV JAVA_TOOL_OPTIONS="-javaagent:/opt/contrast/contrast-agent.jar -Dcontrast.config.path=/opt/contrast/contrast_security.yaml"
-
 # Optionally copy your Contrast configuration file into the image
 COPY contrast_security.yaml /opt/contrast/contrast_security.yaml
 
-# This image can now be used as a base image for applications
+# Ensure the correct permissions for the Contrast configuration file
+RUN chmod 644 /opt/contrast/contrast-agent.jar /opt/contrast/contrast_security.yaml
